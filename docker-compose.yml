@@ -1,0 +1,54 @@
+version: '3'
+volumes:
+  dados:
+networks: 
+  dados:
+  worker:
+  proxy:
+services:
+  db: 
+    image: mongo:3.4
+    volumes: 
+      - dados:/var/lib/mongo/data
+    networks: 
+      - dados
+  nginx:
+    image: nginx
+    volumes: 
+      - ./nginx/account.conf:/etc/nginx/conf.d/account.conf
+    command: /bin/bash -c "envsubst < /etc/nginx/conf.d/account.conf > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
+    ports: 
+      - 80:80
+    networks: 
+      - proxy
+      - worker
+  account: 
+    build: ./account
+    volumes: 
+      - ./account:/account
+      - /account/node_modules
+    ports: 
+      - 3000:3000
+    command: npm start
+    networks: 
+      - proxy
+      - worker
+      - dados
+    depends_on: 
+      - db
+      - nginx
+  quiz: 
+    build: ./quiz
+    volumes: 
+      - ./quiz:/quiz
+      - /quiz/node_modules
+    ports: 
+      - 3001:3001
+    command: npm start
+    networks: 
+      - proxy
+      - worker
+      - dados
+    depends_on: 
+      - db
+      - nginx

@@ -1,0 +1,27 @@
+{
+  "name": "account",
+  "version": "1.0.0",
+  "description": "App ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "robson grillo",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "log4js": "^5.1.0",
+    "mongoose": "^5.5.2",
+    "node-restful": "^0.2.6",
+    "passport": "^0.4.0",
+    "passport-http-bearer": "^1.0.1",
+    "swagger-jsdoc": "^3.4.0",
+    "swagger-ui-express": "^4.1.1"
+  }
+}
